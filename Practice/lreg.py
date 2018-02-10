@@ -1,24 +1,27 @@
 import numpy as np
 
 data = np.genfromtxt('cars.csv', dtype=int, delimiter=',')
-data_row = 50
-weights = np.random.rand(data_row+1,1)
+data_rows = 50
+weights = np.random.rand(2,1)
 speed = data[1:,1]
 distance = data[1:,2]
 step = 0.01
 
-def hypothesis(x):
-	return np.matmul(speed[x],weights[x]) + weights[0]
+def hypothesis():
+	return weights[0] + weights[1] * speed
 
 def cost():
-	total = 0
-	for x in range(data_row):
-		total += (speed[x] * weights[x+1] - distance[x])**2
-	return 0.5 * total
+	total = np.sum((hypothesis() - distance)**2)
+	return 1 / (2 * data_rows) * total
 
 def lms():
-	for j in range(data_row+1):
-		weights[j+1] = weights[j+1] - step * (distance[j] - hypothesis(j)) * speed[j]
+	temp0 = weights[0] - step * np.sum(hypothesis() - distance) / data_rows
+	temp1 = weights[1] - step * np.sum(np.multiply(hypothesis() - distance, speed)) / data_rows
+	weights[0] = temp0
+	weights[1] = temp1
 
 print(hypothesis())
-print(cost())
+
+for x in range(10):
+	print(cost())
+	lms()
