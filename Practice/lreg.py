@@ -5,7 +5,7 @@ data_rows = 50
 weights = np.random.rand(2,1)
 speed = data[1:,1]
 distance = data[1:,2]
-step = 0.001
+step = 0.003
 
 def hypothesis():
 	return weights[0] + weights[1] * speed
@@ -22,9 +22,9 @@ def lms():
 
 print("Initial Hypothesis: ", hypothesis())
 
-for x in range(10000):
+for x in range(100000):
 	lms()
 
 print("Final Hypothesis: ", hypothesis())
 print("Actual Values: ", distance)
-print("Cost: " + str(cost))
+print("Cost: " + str(cost()))
