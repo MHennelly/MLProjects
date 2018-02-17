@@ -1,7 +1,7 @@
 import numpy as np
 
 data = np.genfromtxt('housing.csv', dtype=float, delimiter=',')
-data_rows = len(data[1:,1]) 
+data_rows = len(data[1:,1])
 features = data[1:,1:7]
 feature_cols = len(features[1,:])
 medianPricing = data[1:,8]
@@ -40,12 +40,8 @@ x = hypothesis()
 print("Example Original Hypotheses: ",x[0:10])
 print("Real Value: ",medianPricing[0:10])
 print("Now Performing Gradient Descent...")
-c1 = cost()
-c2 = 100000000000000
-while (c2 - c1) / (c1 + c2) > 0.000001:
+for n in range(10000):
     weights = gradientDescent(weights)
-    c2 = c1
-    c1 = cost()
 print("Final Cost: ",cost())
 print("Final Weights: ",weights)
 x = hypothesis()
