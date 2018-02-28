@@ -47,12 +47,12 @@ def costSet():
     m2 = np.matmul(np.transpose(-dSet + 1),np.log(-H+1))
     return -1 / data_size * np.sum(m1+m2)
 def costVer():
-    H = hSet()
+    H = hVer()
     m1 = np.matmul(np.transpose(dVer),np.log(H))
     m2 = np.matmul(np.transpose(-dVer + 1),np.log(-H+1))
     return -1 / data_size * np.sum(m1+m2)
 def costVirg():
-    H = hSet()
+    H = hVirg()
     m1 = np.matmul(np.transpose(dVirg),np.log(H))
     m2 = np.matmul(np.transpose(-dVirg + 1),np.log(-H+1))
     return -1 / data_size * np.sum(m1+m2)
