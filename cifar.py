@@ -54,22 +54,34 @@ print(test_labels.shape)
 
 #Converting Images To Grayscale
 gsdata = []
+gsvector = []
 for i in range(1000):
   image = []
+  image2 = [random.uniform(0,1)]
   for j in range(32):
     image_row = []
     for k in range(32):
       temp = train_data[i,j,k].astype(int)
       gray = int((temp[0] + temp[1] + temp[2])/3)
       image_row.append(gray)
+      image2.append(gray)
     image.append(image_row)
   gsdata.append(image)
+  gsvector.append(image2)
 
 #Testing
 x = random.randint(0,1000)
 plt.imshow(gsdata[x])
 plt.show()
 
-weights1 = np.random.randn(32,32)
-hidden = np.zeros(1024)
-output = np.zeros(100)
+
+weights1 = np.random.randn(1025,1025)
+weights2 = np.random.randn(1025)
+
+def hypothesis(picture):
+  temp = gsvector.astype(float128)
+  z = np.matmul(temp[picture],weights1)
+  activation2 = 1/(1+np.exp(-z))
+  return np.dot(activation2,weights2)
+
+print(hypothesis(x))
